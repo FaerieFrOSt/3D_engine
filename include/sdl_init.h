@@ -43,7 +43,7 @@ struct sdl_data {
 
 struct sdl_data	*init(const char *folder, const char *title);
 void			end(struct sdl_data **);
-void			print(struct sdl_data *);
+void			display(struct sdl_data *);
 
 void			updateEvents(struct sdl_data *);
 

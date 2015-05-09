@@ -1,4 +1,4 @@
-#include "sdl.h"
+#include "sdl_init.h"
 
 struct sdl_data	*init(const char *folder, const char *title) {
 	struct sdl_data	*data = malloc(sizeof(struct sdl_data));
@@ -93,7 +93,7 @@ void	end(struct sdl_data **data) {
 	*data = NULL;
 }
 
-void	print(struct sdl_data *data) {
+void	display(struct sdl_data *data) {
 		data->fps.fps = data->fps.countedFrames / ((SDL_GetTicks() - data->fps.startTime) / 1000.f);
 		SDL_Texture	*text = NULL;
 		if (data->fps.print)
@@ -108,7 +108,7 @@ void	print(struct sdl_data *data) {
 			data->font.pos.x = W - tmp->w - 5;
 			SDL_FreeSurface(tmp);
 		}
-		SDL_UpdateTexture(data->tex, NULL, data->screen->pixels, W * sizeof(*data->screen->pixels));
+		SDL_UpdateTexture(data->tex, NULL, data->screen->pixels, data->screen->pitch);
 		SDL_RenderClear(data->ren);
 		SDL_RenderCopy(data->ren, data->tex, NULL, NULL);
 		if (text)
