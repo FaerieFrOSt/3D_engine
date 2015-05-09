@@ -14,7 +14,7 @@ CFLAGS = -Wall -Werror -g
 
 INC = -I./include
 
-LIBS = -lSDL2 -lSDL2_ttf
+LIBS = -lSDL2 -lSDL2_ttf -lm
 
 $(EXE): $(OBJ)
 	$(CC) $^ $(LIBS) -o $@
@@ -25,7 +25,9 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 .PHONY: clean fclean
 
 clean:
-	rm $(OB)
+	rm $(OBJ)
 
 fclean: clean
 	rm $(EXE)
+
+re: fclean $(EXE)
