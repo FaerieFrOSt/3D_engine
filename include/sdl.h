@@ -15,6 +15,7 @@ struct sdl_data {
 	SDL_Renderer	*ren;
 	SDL_Surface		*screen;
 	SDL_Texture		*tex;
+	char			*folder;
 
 	// Events
 	struct {
@@ -40,7 +41,7 @@ struct sdl_data {
 	} font;
 };
 
-struct sdl_data	*init(const char *title);
+struct sdl_data	*init(const char *folder, const char *title);
 void			end(struct sdl_data **);
 void			print(struct sdl_data *);
 

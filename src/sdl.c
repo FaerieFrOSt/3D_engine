@@ -1,6 +1,6 @@
 #include "sdl.h"
 
-struct sdl_data	*init(const char *title) {
+struct sdl_data	*init(const char *folder, const char *title) {
 	struct sdl_data	*data = malloc(sizeof(struct sdl_data));
 	if (!data)
 		exit(1); // TODO : print a message
@@ -33,6 +33,14 @@ struct sdl_data	*init(const char *title) {
 	SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
 	data->tex = SDL_CreateTexture(data->ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, W, H);
 
+	// set working folder
+	size_t	len = strlen(folder);
+	while (folder[--len] != '/');
+	data->folder = malloc((len + 1) * sizeof(*data->folder));
+	strncpy(data->folder, folder, len);
+	data->folder[len] = '\0';
+
+	// Events
 	memset(data->events.key, 0, sizeof(data->events.key));
 	data->events.quit = 0;
 
@@ -46,7 +54,9 @@ struct sdl_data	*init(const char *title) {
 
 	// Font
 	// TODO : create a real font manager
-	data->font.font = TTF_OpenFont("font.ttf", 10);
+	char	buf[256];
+	snprintf(buf, sizeof buf, "%s/font.ttf", data->folder);
+	data->font.font = TTF_OpenFont(buf, 10);
 	data->font.color.r = 255;
 	data->font.color.g = 255;
 	data->font.color.b = 255;
@@ -67,6 +77,8 @@ struct sdl_data	*init(const char *title) {
 void	end(struct sdl_data **data) {
 	if (!data || !*data)
 		return;
+	if ((*data)->folder)
+		free((*data)->folder);
 	if ((*data)->ren)
 		SDL_DestroyRenderer((*data)->ren);
 	if ((*data)->win)
