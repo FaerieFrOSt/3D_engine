@@ -7,6 +7,8 @@
 
 #define W 640
 #define H 480
+#define SCREEN_FPS 30
+#define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
 
 struct sdl_data {
 	SDL_Window		*win;
@@ -26,6 +28,8 @@ struct sdl_data {
 		uint32_t	startTime;
 		float		fps;
 		int			print;
+		int			capFPS;
+		uint32_t	frameTicks;
 	} fps;
 
 	// Font

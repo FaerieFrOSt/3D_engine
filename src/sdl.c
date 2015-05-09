@@ -20,8 +20,8 @@ struct sdl_data	*init(const char *title) {
 		SDL_Quit();
 		exit(1);
 	}
-	data->ren = SDL_CreateRenderer(data->win, -1, SDL_RENDERER_ACCELERATED |
-							SDL_RENDERER_PRESENTVSYNC);
+	data->ren = SDL_CreateRenderer(data->win, -1, SDL_RENDERER_ACCELERATED /* |
+							SDL_RENDERER_PRESENTVSYNC */);
 	if (!data->ren) {
 		printf("error creating renderer : %s\n", SDL_GetError());
 		SDL_DestroyWindow(data->win);
@@ -41,6 +41,8 @@ struct sdl_data	*init(const char *title) {
 	data->fps.fps = 0;
 	data->fps.startTime = SDL_GetTicks();
 	data->fps.print = 0;
+	data->fps.capFPS = 0;
+	data->fps.frameTicks = 0;
 
 	// Font
 	// TODO : create a real font manager
@@ -101,6 +103,12 @@ void	print(struct sdl_data *data) {
 			SDL_RenderCopy(data->ren, text, NULL, &data->font.pos);
 		SDL_RenderPresent(data->ren);
 		++data->fps.countedFrames;
+		// cap FPS if needed
+		uint32_t	tmp = SDL_GetTicks();
+		if (data->fps.capFPS && tmp - data->fps.frameTicks < SCREEN_TICKS_PER_FRAME) {
+			SDL_Delay(SCREEN_TICKS_PER_FRAME - (tmp - data->fps.frameTicks));
+		}
+		data->fps.frameTicks = SDL_GetTicks();
 }
 
 void	updateEvents(struct sdl_data *data) {
