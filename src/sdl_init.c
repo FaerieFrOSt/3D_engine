@@ -128,10 +128,11 @@ void	updateEvents(struct sdl_data *data) {
 	while (SDL_PollEvent(&e))
 		switch (e.type) {
 			case SDL_KEYDOWN:
-				data->events.key[e.key.keysym.sym] = 1;
+				printf("%d\n", e.key.keysym.scancode);
+				data->events.key[e.key.keysym.scancode] = 1;
 				break;
 			case SDL_KEYUP:
-				data->events.key[e.key.keysym.sym] = 0;
+				data->events.key[e.key.keysym.scancode] = 0;
 				break;
 			case SDL_QUIT:
 				data->events.quit = 1;
@@ -139,4 +140,8 @@ void	updateEvents(struct sdl_data *data) {
 			default:
 				break;
 		}
+}
+
+inline int	keyPressed(struct sdl_data *data, char key) {
+	return data->events.key[(int)key];
 }

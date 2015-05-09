@@ -46,5 +46,6 @@ void			end(struct sdl_data **);
 void			display(struct sdl_data *);
 
 void			updateEvents(struct sdl_data *);
+int				keyPressed(struct sdl_data*, char key);
 
 #endif /* !_SDL_H_ */
