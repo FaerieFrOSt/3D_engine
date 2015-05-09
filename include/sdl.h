@@ -2,6 +2,8 @@
 # define _SDL_H_
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <stdint.h>
 
 #define W 640
 #define H 480
@@ -11,10 +13,27 @@ struct sdl_data {
 	SDL_Renderer	*ren;
 	SDL_Surface		*screen;
 	SDL_Texture		*tex;
+
+	// Events
 	struct {
 		char		key[SDL_NUM_SCANCODES];
 		int			quit;
 	} events;
+
+	// FPS
+	struct {
+		int			countedFrames;
+		uint32_t	startTime;
+		float		fps;
+		int			print;
+	} fps;
+
+	// Font
+	struct {
+		TTF_Font	*font;
+		SDL_Color	color;
+		SDL_Rect	pos;
+	} font;
 };
 
 struct sdl_data	*init(const char *title);

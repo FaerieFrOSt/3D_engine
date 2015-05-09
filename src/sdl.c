@@ -8,6 +8,11 @@ struct sdl_data	*init(const char *title) {
 		printf("SDL_Init error : %s\n", SDL_GetError());
 		exit(1);
 	}
+	if (TTF_Init() == -1) {
+		printf("TTF_Init error : %s\n", TTF_GetError());
+		SDL_Quit();
+		exit(1);
+	}
 	data->win = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
 						SDL_WINDOWPOS_CENTERED, W, H, 0);
 	if (!data->win) {
@@ -31,6 +36,27 @@ struct sdl_data	*init(const char *title) {
 	memset(data->events.key, 0, sizeof(data->events.key));
 	data->events.quit = 0;
 
+	// FPS
+	data->fps.countedFrames = 0;
+	data->fps.fps = 0;
+	data->fps.startTime = SDL_GetTicks();
+	data->fps.print = 0;
+
+	// Font
+	// TODO : create a real font manager
+	data->font.font = TTF_OpenFont("font.ttf", 10);
+	data->font.color.r = 255;
+	data->font.color.g = 255;
+	data->font.color.b = 255;
+	data->font.color.a = 0;
+	data->font.pos.x = W - 30;
+	data->font.pos.y = 10;
+	if (!data->font.font) {
+		printf("TTF error : %s\n", TTF_GetError());
+		end(&data);
+		exit(1);
+	}
+
 	// the window grabs the mouse
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	return data;
@@ -45,16 +71,35 @@ void	end(struct sdl_data **data) {
 		SDL_DestroyWindow((*data)->win);
 	if ((*data)->screen)
 		SDL_FreeSurface((*data)->screen);
+	if ((*data)->font.font)
+		TTF_CloseFont((*data)->font.font);
+	TTF_Quit();
 	SDL_Quit();
 	free(*data);
 	*data = NULL;
 }
 
 void	print(struct sdl_data *data) {
+		data->fps.fps = data->fps.countedFrames / ((SDL_GetTicks() - data->fps.startTime) / 1000.f);
+		SDL_Texture	*text = NULL;
+		if (data->fps.print)
+		{
+			char	buf[16];
+			memset(buf, 0, sizeof buf);
+			snprintf(buf, sizeof buf, "%.2f", data->fps.fps);
+			SDL_Surface	*tmp = TTF_RenderText_Solid(data->font.font, buf, data->font.color);
+			text = SDL_CreateTextureFromSurface(data->ren, tmp);
+			data->font.pos.w = tmp->w;
+			data->font.pos.h = tmp->h;
+			SDL_FreeSurface(tmp);
+		}
 		SDL_UpdateTexture(data->tex, NULL, data->screen->pixels, W * sizeof(*data->screen->pixels));
 		SDL_RenderClear(data->ren);
 		SDL_RenderCopy(data->ren, data->tex, NULL, NULL);
+		if (text)
+			SDL_RenderCopy(data->ren, text, NULL, &data->font.pos);
 		SDL_RenderPresent(data->ren);
+		++data->fps.countedFrames;
 }
 
 void	updateEvents(struct sdl_data *data) {

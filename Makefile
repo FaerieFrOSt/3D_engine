@@ -1,4 +1,4 @@
-EXE = a.out
+EXE = bin/a.out
 
 CC = gcc
 
@@ -14,7 +14,7 @@ CFLAGS = -Wall -Werror -g
 
 INC = -I./include
 
-LIBS = -lSDL2
+LIBS = -lSDL2 -lSDL2_ttf
 
 $(EXE): $(OBJ)
 	$(CC) $^ $(LIBS) -o $@
