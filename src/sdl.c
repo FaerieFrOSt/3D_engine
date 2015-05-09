@@ -49,7 +49,7 @@ struct sdl_data	*init(const char *title) {
 	data->font.color.g = 255;
 	data->font.color.b = 255;
 	data->font.color.a = 0;
-	data->font.pos.x = W - 30;
+	data->font.pos.x = W - 35;
 	data->font.pos.y = 10;
 	if (!data->font.font) {
 		printf("TTF error : %s\n", TTF_GetError());
@@ -91,6 +91,7 @@ void	print(struct sdl_data *data) {
 			text = SDL_CreateTextureFromSurface(data->ren, tmp);
 			data->font.pos.w = tmp->w;
 			data->font.pos.h = tmp->h;
+			data->font.pos.x = W - tmp->w - 5;
 			SDL_FreeSurface(tmp);
 		}
 		SDL_UpdateTexture(data->tex, NULL, data->screen->pixels, W * sizeof(*data->screen->pixels));

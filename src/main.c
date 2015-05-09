@@ -7,7 +7,6 @@ int	main() {
 	while (!data->events.key[SDLK_ESCAPE] && !data->events.quit) {
 		updateEvents(data);
 		print(data);
-		SDL_Delay(10);
 	}
 	end(&data);
 	return 0;
