@@ -31,6 +31,7 @@ struct sdl_data {
 		int			print;
 		int			capFPS;
 		uint32_t	frameTicks;
+		uint32_t	ticksPerFrame;
 	} fps;
 
 	// Font

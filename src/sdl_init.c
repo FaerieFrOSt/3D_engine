@@ -51,6 +51,7 @@ struct sdl_data	*init(const char *folder, const char *title) {
 	data->fps.print = 0;
 	data->fps.capFPS = 0;
 	data->fps.frameTicks = 0;
+	data->fps.ticksPerFrame = 0;
 
 	// Font
 	// TODO : create a real font manager
@@ -120,6 +121,7 @@ void	display(struct sdl_data *data) {
 		if (data->fps.capFPS && tmp - data->fps.frameTicks < SCREEN_TICKS_PER_FRAME) {
 			SDL_Delay(SCREEN_TICKS_PER_FRAME - (tmp - data->fps.frameTicks));
 		}
+		data->fps.ticksPerFrame = tmp - data->fps.frameTicks;
 		data->fps.frameTicks = SDL_GetTicks();
 }
 
