@@ -23,7 +23,7 @@ int	main(int argc, char *argv[]) {
 		updatePlayerPosition(data, player, dx, dy);
 		int	x;
 		SDL_GetRelativeMouseState(&x, NULL);
-		updatePlayerRotation(player, x);
+		updatePlayerRotation(player, x * 0.1);
 
 		SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
 		// wall
@@ -31,6 +31,11 @@ int	main(int argc, char *argv[]) {
 		// player's position
 		drawVLine(data->screen, player->x, player->y - 2, player->y + 2, SDL_MapRGB(data->screen->format, 0, 255, 0));
 		drawHLine(data->screen, player->x - 2, player->x + 2, player->y, SDL_MapRGB(data->screen->format, 0, 255, 0));
+		// player's direction view
+		drawLine(data->screen, player->x, player->y,
+				player->anglecos * 20 + player->x, player->anglesin * 20 + player->y,
+				SDL_MapRGB(data->screen->format, 0, 0, 255));
+		// draw everything on screen
 		display(data);
 	}
 	delete_player(&player);

@@ -6,4 +6,8 @@
 #define max(a, b)				((a) > (b) ? (a) : (b))
 #define clamp(a, _min, _max)	max(min(a, _max), _min)
 
+#define swap(a, b)				({ __typeof__ (a) _tmp = (a); \
+										(a) = (b); (b) = _tmp; })
+#define abs(a)					((a) < 0 ? -(a) : (a))
+
 #endif /* !_UTILS_H_ */
