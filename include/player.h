@@ -4,15 +4,16 @@
 
 #include "sdl_init.h"
 
-#define PLAYER_SPEED	10
+#define PLAYER_SPEED	5
 
 struct player {
 	int		x, y, z;
 	float	angle, anglecos, anglesin;
 	int		speed;
+	float	sensibility;
 	struct {
-		int	up;
-		int	down;
+		int	forward;
+		int	backward;
 		int	left;
 		int	right;
 	} keys;

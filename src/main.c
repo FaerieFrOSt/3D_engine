@@ -12,18 +12,18 @@ int	main(int argc, char *argv[]) {
 	while (!keyPressed(data, SDL_SCANCODE_ESCAPE) && !data->events.quit) {
 		updateEvents(data);
 		int	dx = 0, dy = 0;
-		if (keyPressed(data, player->keys.up))
-			dy = -1;
-		else if (keyPressed(data, player->keys.down))
-			dy = 1;
-		if (keyPressed(data, player->keys.left))
-			dx = -1;
-		else if (keyPressed(data, player->keys.right))
+		if (keyPressed(data, player->keys.forward))
 			dx = 1;
+		else if (keyPressed(data, player->keys.backward))
+			dx = -1;
+		if (keyPressed(data, player->keys.left))
+			dy = -1;
+		else if (keyPressed(data, player->keys.right))
+			dy = 1;
 		updatePlayerPosition(data, player, dx, dy);
 		int	x;
 		SDL_GetRelativeMouseState(&x, NULL);
-		updatePlayerRotation(player, x * 0.1);
+		updatePlayerRotation(player, x * player->sensibility);
 
 		SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
 		// wall
