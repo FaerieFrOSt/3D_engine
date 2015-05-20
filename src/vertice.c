@@ -1,7 +1,7 @@
 #include "vertice.h"
 #include <stdlib.h>
 
-struct vertice	*create_vertice(int x, int y) {
+struct vertice	*create_vertice(float x, float y) {
 	struct vertice	*tmp = malloc(sizeof(*tmp));
 	tmp->x = x;
 	tmp->y = y;

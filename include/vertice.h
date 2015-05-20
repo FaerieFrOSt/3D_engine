@@ -3,10 +3,10 @@
 # define _VERTICE_H_
 
 struct	vertice {
-	int	x, y;
+	float	x, y;
 };
 
-struct vertice	*create_vertice(int x, int y);
+struct vertice	*create_vertice(float x, float y);
 void			delete_vertice(struct vertice**);
 
 #endif /* !_VERTICE_H_ */
