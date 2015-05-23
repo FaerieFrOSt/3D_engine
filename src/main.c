@@ -25,9 +25,9 @@ int	main(int argc, char *argv[]) {
 		else if (keyPressed(data, player->keys.right))
 			dy = 1;
 		if (keyPressed(data, player->keys.rotateLeft))
-			updatePlayerRotation(player, 20*player->sensibility);
+			updatePlayerRotation(player, -20 * player->sensibility);
 		else if (keyPressed(data, player->keys.rotateRight))
-			updatePlayerRotation(player, -20*player->sensibility);
+			updatePlayerRotation(player, 20 * player->sensibility);
 		updatePlayerPosition(data, player, dx, dy);
 		SDL_GetRelativeMouseState(&dx, &dy);
 		updatePlayerRotation(player, dx * player->sensibility);
