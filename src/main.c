@@ -3,14 +3,14 @@
 #include "draw.h"
 #include "player.h"
 #include "utils.h"
-#include "sector.h"
+#include "map.h"
 
 int	main(int argc, char *argv[]) {
 	struct sdl_data	*data = init(argv[0], "3D engine");
-	struct player	*player = init_player(W / 2, H / 2, 0, 0);
 	data->fps.print = 1;
 	data->fps.capFPS = 1;
-	struct sector	*s = load_sector(data, "sector.txt");
+	struct map	*map = load_map(data, "map.txt");
+	struct player	*player = init_player(map->beginPosition.x, map->beginPosition.y, map->sectors[map->beginPosition.sector]->floor, map->beginPosition.angle);
 	while (!keyPressed(data, SDL_SCANCODE_ESCAPE) && !data->events.quit) {
 		updateEvents(data);
 		int	dx = 0, dy = 0;
@@ -29,7 +29,7 @@ int	main(int argc, char *argv[]) {
 
 		SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
 		// wall
-		drawSector(data->screen, s);
+		drawMap(data, map);
 		// player's position
 		drawVLine(data->screen, player->x, player->y - 2, player->y + 2, SDL_MapRGB(data->screen->format, 0, 255, 0));
 		drawHLine(data->screen, player->x - 2, player->x + 2, player->y, SDL_MapRGB(data->screen->format, 0, 255, 0));

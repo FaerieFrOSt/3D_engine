@@ -1,0 +1,15 @@
+# this is a comment
+
+# player : x y sector angle
+player 50 150 1 0
+
+sector 1
+	floor	0
+	ceiling	3
+
+	# each vertice is as follow : x y
+	vertice	100 100
+	vertice 100 200
+	vertice 40 200
+	vertice 40 100
+	vertice 100 100

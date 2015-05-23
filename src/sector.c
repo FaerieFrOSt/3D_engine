@@ -14,6 +14,8 @@ struct sector	*create_sector(float floor, float ceiling) {
 
 void	addVertice(struct sector *s, float x, float y) {
 	struct vertice	*tmp = create_vertice(x, y);
+	if (!s)
+		return;
 	++s->numVertices;
 	s->vertex = realloc(s->vertex, s->numVertices * sizeof(*s->vertex));
 	s->vertex[s->numVertices - 1] = tmp;
