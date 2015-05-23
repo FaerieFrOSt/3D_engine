@@ -8,6 +8,7 @@ struct player	*init_player(int x, int y, int z, float angle) {
 	tmp->x = x;
 	tmp->y = y;
 	tmp->z = z;
+	tmp->sector = 0;
 	tmp->speed = PLAYER_SPEED;
 	tmp->angle = angle * M_PI / 180.f;
 	tmp->anglecos = cosf(angle);

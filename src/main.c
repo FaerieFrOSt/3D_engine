@@ -11,7 +11,7 @@ int	main(int argc, char *argv[]) {
 	data->fps.print = 1;
 	data->fps.capFPS = 1;
 	struct map	*map = load_map(data, "map.txt");
-	struct player	*player = init_player(map->beginPosition.x, map->beginPosition.y, map->sectors[map->beginPosition.sector - 1]->floor, map->beginPosition.angle);
+	struct player	*player = init_player(map->beginPosition.x, map->beginPosition.y, map->sectors[map->beginPosition.sector]->floor, map->beginPosition.angle);
 	data->player = player;
 	while (!keyPressed(data, SDL_SCANCODE_ESCAPE) && !data->events.quit) {
 		updateEvents(data);
@@ -31,6 +31,13 @@ int	main(int argc, char *argv[]) {
 		updatePlayerPosition(data, player, dx, dy);
 		SDL_GetRelativeMouseState(&dx, &dy);
 		updatePlayerRotation(player, dx * player->sensibility);
+		// update player sector
+		int i;
+		for (i = 0; i < map->nbSectors; ++i)
+			if (pointInSector(player->x, player->y, map->sectors[i])) {
+				player->sector = i;
+				break;
+			}
 
 		SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
 		SDL_FillRect(data->minimap, NULL, SDL_MapRGB(data->minimap->format, 0, 0, 0));

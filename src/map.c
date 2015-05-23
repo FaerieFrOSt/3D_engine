@@ -1,4 +1,5 @@
 #include "map.h"
+#include "utils.h"
 
 struct map	*load_map(const struct sdl_data *data, const char *filename) {
 	char	buf[256];
@@ -22,7 +23,6 @@ struct map	*load_map(const struct sdl_data *data, const char *filename) {
 			case 'p': //player
 				sscanf(ptr += n, "%i%n", &map->beginPosition.x, &n);
 				sscanf(ptr += n, "%i%n", &map->beginPosition.y, &n);
-				sscanf(ptr += n, "%i%n", &map->beginPosition.sector, &n);
 				sscanf(ptr += n, "%lf%n", &map->beginPosition.angle, &n);
 				break;
 			case 's': //sector
@@ -33,7 +33,7 @@ struct map	*load_map(const struct sdl_data *data, const char *filename) {
 			break;
 			case 'v': //vertice
 				for (sscanf(ptr += n, "%f%n", &v.x, &n); sscanf(ptr += n, "%f%n", &v.y, &n) == 1;)
-					addVertice(s, v.x, v.y);
+					addVertice(s, v.x, v.y); // TODO : verify closed sector
 				break;
 			case 'f': //floor
 				if (!s)
@@ -46,6 +46,11 @@ struct map	*load_map(const struct sdl_data *data, const char *filename) {
 				sscanf(ptr +=n, "%f%n", &s->ceiling, &n);
 		}
 	}
+	for (n = 0; n < map->nbSectors; ++n)
+		if (pointInSector(map->beginPosition.x, map->beginPosition.y, map->sectors[n])) {
+			map->beginPosition.sector = n;
+			break;
+		}
 	fclose(fp);
 	return map;
 }
@@ -66,5 +71,5 @@ void	delete_map(struct map **m) {
 void	drawMap(SDL_Surface *s, struct player *p, struct map *map) {
 	int	i;
 	for (i = 0; i < map->nbSectors; ++i)
-		drawSector(s, p, map->sectors[i]);
+		drawSector(s, p, map->sectors[i], p->sector == i);
 }

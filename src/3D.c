@@ -14,5 +14,5 @@ void	drawMinimap(struct sdl_data *data, struct map *map) {
 			data->minimap->h / 2, SDL_MapRGB(data->minimap->format, 0, 255, 0));
 	// player direction
 	drawVLine(data->minimap, data->minimap->w / 2, data->minimap->h / 2,
-			data->minimap->h/2 - 10, SDL_MapRGB(data->minimap->format, 0, 0, 255));
+			data->minimap->h/2 - 10, SDL_MapRGB(data->minimap->format, 255, 0, 255));
 }

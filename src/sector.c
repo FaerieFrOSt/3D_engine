@@ -32,36 +32,19 @@ void	delete_sector(struct sector **s) {
 	*s = 0;
 }
 
-struct sector	*load_sector(struct sdl_data *data, const char *filename) {
-	char	buf[256];
-	snprintf(buf, sizeof buf, "%s/%s", data->folder, filename); // TODO : create a real ressource manager
-	struct sector	*s = create_sector(0, 0);
-	FILE	*fp = fopen(buf, "r");
-	if (!fp) {
-		perror(filename);
-		exit(1);
-	}
-	char	word[256], *ptr;
-	int	n;
-	struct vertice	v;
-	while (fgets(buf, sizeof buf, fp)) {
-		switch (sscanf(ptr = buf, "%32s%n", word, &n) == 1 ? word[0] : 0) {
-			case 'v': //vertice
-				for (sscanf(ptr += n, "%f%n", &v.x, &n); sscanf(ptr += n, "%f%n", &v.y, &n) == 1;)
-					addVertice(s, v.x, v.y);
-				break;
-			case 'f': //floor
-				sscanf(ptr += n, "%f%n", &s->floor, &n);
-				break;
-			case 'c': //ceiling
-				sscanf(ptr +=n, "%f%n", &s->ceiling, &n);
-		}
-	}
-	fclose(fp);
-	return s;
+inline void	fill(SDL_Surface *s, unsigned int x, unsigned int y, const uint32_t color) {
+	if (x < 0 || x >= s->w || y < 0 || y >= s->h)
+		return;
+	if (((uint32_t*)s->pixels)[y * s->w + x])
+		return;
+	drawPixel(s, x, y, color);
+	fill(s, x - 1, y, color);
+	fill(s, x + 1, y, color);
+	fill(s, x, y - 1, color);
+	fill(s, x, y + 1, color);
 }
 
-void	drawSector(SDL_Surface *s, struct player *p, struct sector *se) {
+void	drawSector(SDL_Surface *s, struct player *p, struct sector *se, uint8_t in) {
 	int	i;
 	int	x1, y1, x2, y2;
 	int	tz1, tz2;
@@ -84,4 +67,10 @@ void	drawSector(SDL_Surface *s, struct player *p, struct sector *se) {
 		drawLine(s, s->w / 2 - x1, s->h / 2 - tz1, s->w / 2 - x2, s->h / 2 - tz2,
 				SDL_MapRGB(s->format, 255, 0, 0));
 	}
+	if (se->numVertices < 3)
+		return;
+	//fill algorithm
+	if (in)
+		fill(s, s->w / 2, s->h / 2, SDL_MapRGB(s->format, 0, 0, 50));
 }
+

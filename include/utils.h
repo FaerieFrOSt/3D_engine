@@ -8,6 +8,9 @@
 
 #define swap(a, b)				do { __typeof__ (a) _tmp = (a); \
 										(a) = (b); (b) = _tmp; } while (0)
-#define abs(a)					((a) < 0 ? -(a) : (a))
+
+#include "sector.h"
+
+uint8_t	pointInSector(int x, int y, struct sector*);
 
 #endif /* !_UTILS_H_ */

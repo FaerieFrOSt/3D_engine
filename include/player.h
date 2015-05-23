@@ -11,6 +11,7 @@ struct player {
 	float	angle, anglecos, anglesin;
 	int		speed;
 	float	sensibility;
+	int		sector;
 	struct {
 		int	forward;
 		int	backward;

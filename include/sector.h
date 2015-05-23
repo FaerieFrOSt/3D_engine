@@ -15,8 +15,7 @@ struct sector {
 struct sector	*create_sector(float floor, float ceiling);
 void			delete_sector(struct sector**);
 void			addVertice(struct sector*, float x, float y);
-struct sector	*load_sector(struct sdl_data*, const char *filename);
 
-void			drawSector(SDL_Surface*, struct player*, struct sector*);
+void			drawSector(SDL_Surface*, struct player*, struct sector*, uint8_t);
 
 #endif /* !_SECTOR_H_ */

@@ -1,15 +1,26 @@
 # this is a comment
 
-# player : x y sector angle
-player 50 150 1 0
+# player : x y angle
+player 50 150 0
 
 sector 1
 	floor	0
 	ceiling	3
 
 	# each vertice is as follow : x y
+	# the sector needs to be closed
 	vertice	100 100
 	vertice 100 200
 	vertice 40 200
 	vertice 40 100
+	vertice 100 100
+
+sector 2
+	floor	0
+	ceiling	3
+
+	vertice 100 100
+	vertice 100 50
+	vertice 50 50
+	vertice 50 100
 	vertice 100 100
