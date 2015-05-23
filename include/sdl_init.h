@@ -14,6 +14,7 @@ struct sdl_data {
 	SDL_Window		*win;
 	SDL_Renderer	*ren;
 	SDL_Surface		*screen;
+	SDL_Surface		*minimap;
 	SDL_Texture		*tex;
 	char			*folder;
 

@@ -1,4 +1,5 @@
 #include "sdl_init.h"
+#include "draw.h"
 
 struct sdl_data	*init(const char *folder, const char *title) {
 	struct sdl_data	*data = malloc(sizeof(struct sdl_data));
@@ -32,6 +33,8 @@ struct sdl_data	*init(const char *folder, const char *title) {
 	data->screen = SDL_CreateRGBSurface(0, W, H, 32, 0, 0, 0, 0);
 	SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
 	data->tex = SDL_CreateTexture(data->ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, W, H);
+	data->minimap = SDL_CreateRGBSurface(0, W / 5, H / 5, 32, 0, 0, 0, 0);
+	SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->minimap->format, 0, 0, 0));
 
 	// set working folder
 	size_t	len = strlen(folder);
@@ -88,6 +91,8 @@ void	end(struct sdl_data **data) {
 		SDL_DestroyWindow((*data)->win);
 	if ((*data)->screen)
 		SDL_FreeSurface((*data)->screen);
+	if ((*data)->minimap)
+		SDL_FreeSurface((*data)->minimap);
 	if ((*data)->font.font)
 		TTF_CloseFont((*data)->font.font);
 	TTF_Quit();
@@ -99,6 +104,11 @@ void	end(struct sdl_data **data) {
 void	display(struct sdl_data *data) {
 		data->fps.fps = data->fps.countedFrames / ((SDL_GetTicks() - data->fps.startTime) / 1000.f);
 		SDL_Texture	*text = NULL;
+		/* drawVLine(data->minimap, 0, 0, data->minimap->h, SDL_MapRGB(data->minimap->format, 255, 255, 0)); */
+		/* drawHLine(data->minimap, 0, data->minimap->w, data->minimap->h, SDL_MapRGB(data->minimap->format, 255, 255, 0)); */
+		SDL_Rect	rect = {W, 0, 0, 0};
+		rect.x -= data->minimap->w;
+		SDL_BlitSurface(data->minimap, 0, data->screen, &rect);
 		if (data->fps.print)
 		{
 			char	buf[16];

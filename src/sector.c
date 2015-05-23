@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "draw.h"
-#include "player.h"
 
 struct sector	*create_sector(float floor, float ceiling) {
 	struct sector	*tmp = malloc(sizeof(*tmp));
@@ -58,14 +57,14 @@ struct sector	*load_sector(struct sdl_data *data, const char *filename) {
 				sscanf(ptr +=n, "%f%n", &s->ceiling, &n);
 		}
 	}
+	fclose(fp);
 	return s;
 }
 
-void	drawSector(struct sdl_data *s, struct sector *se) {
+void	drawSector(SDL_Surface *s, struct player *p, struct sector *se) {
 	int	i;
 	int	x1, y1, x2, y2;
 	int	tz1, tz2;
-	struct player	*p = (struct player*)s->player;
 	for (i = 0; i < se->numVertices - 1; ++i) {
 		x1 = se->vertex[i]->x;
 		y1 = se->vertex[i]->y;
@@ -82,7 +81,7 @@ void	drawSector(struct sdl_data *s, struct sector *se) {
 		x1 = x1 * p->anglesin - y1 * p->anglecos;
 		x2 = x2 * p->anglesin - y2 * p->anglecos;
 		// draw
-		drawLine(s->screen, W/2-x1, H/2-tz1, W/2-x2, H/2-tz2,
-				SDL_MapRGB(s->screen->format, 255, 0, 0));
+		drawLine(s, s->w / 2 - x1, s->h / 2 - tz1, s->w / 2 - x2, s->h / 2 - tz2,
+				SDL_MapRGB(s->format, 255, 0, 0));
 	}
 }

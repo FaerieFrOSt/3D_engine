@@ -4,6 +4,7 @@
 
 #include "vertice.h"
 #include "sdl_init.h"
+#include "player.h"
 
 struct sector {
 	int	numVertices;
@@ -16,6 +17,6 @@ void			delete_sector(struct sector**);
 void			addVertice(struct sector*, float x, float y);
 struct sector	*load_sector(struct sdl_data*, const char *filename);
 
-void			drawSector(struct sdl_data*, struct sector*);
+void			drawSector(SDL_Surface*, struct player*, struct sector*);
 
 #endif /* !_SECTOR_H_ */

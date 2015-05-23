@@ -4,6 +4,7 @@
 
 #include "sector.h"
 #include "sdl_init.h"
+#include "player.h"
 
 struct map {
 	struct sector	**sectors;
@@ -17,6 +18,6 @@ struct map {
 struct map	*load_map(const struct sdl_data *, const char *filename);
 void		delete_map(struct map**);
 
-void		drawMap(struct sdl_data*, struct map*);
+void		drawMap(SDL_Surface*, struct player*, struct map*);
 
 #endif /* !_MAP_H_ */

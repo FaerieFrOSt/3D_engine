@@ -46,6 +46,7 @@ struct map	*load_map(const struct sdl_data *data, const char *filename) {
 				sscanf(ptr +=n, "%f%n", &s->ceiling, &n);
 		}
 	}
+	fclose(fp);
 	return map;
 }
 
@@ -62,8 +63,8 @@ void	delete_map(struct map **m) {
 	return;
 }
 
-void	drawMap(struct sdl_data *data, struct map *map) {
+void	drawMap(SDL_Surface *s, struct player *p, struct map *map) {
 	int	i;
 	for (i = 0; i < map->nbSectors; ++i)
-		drawSector(data, map->sectors[i]);
+		drawSector(s, p, map->sectors[i]);
 }

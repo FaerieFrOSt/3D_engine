@@ -4,6 +4,7 @@
 #include "player.h"
 #include "utils.h"
 #include "map.h"
+#include "3D.h"
 
 int	main(int argc, char *argv[]) {
 	struct sdl_data	*data = init(argv[0], "3D engine");
@@ -33,19 +34,8 @@ int	main(int argc, char *argv[]) {
 		updatePlayerRotation(player, x * player->sensibility);
 
 		SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
-		// wall
-		drawMap(data, map);
-		// player's position
-		drawVLine(data->screen, W/2, H/2 - 2, H/2+2, SDL_MapRGB(data->screen->format, 0, 255, 0));
-		drawHLine(data->screen, W/2-2, W/2+2, H/2, SDL_MapRGB(data->screen->format, 0, 255, 0));
-		/* drawVLine(data->screen, player->x, player->y - 2, player->y + 2, SDL_MapRGB(data->screen->format, 0, 255, 0)); */
-		/* drawHLine(data->screen, player->x - 2, player->x + 2, player->y, SDL_MapRGB(data->screen->format, 0, 255, 0)); */
-		// player's direction view
-		drawLine(data->screen, W/2, H/2, W/2, H/2 - 20, SDL_MapRGB(data->screen->format, 0, 0, 255));
-		/* drawLine(data->screen, player->x, player->y, */
-		/* 		player->anglecos * 20 + player->x, player->anglesin * 20 + player->y, */
-				/* SDL_MapRGB(data->screen->format, 0, 0, 255)); */
-		// draw everything on screen
+		SDL_FillRect(data->minimap, NULL, SDL_MapRGB(data->minimap->format, 0, 0, 0));
+		drawMinimap(data, map);
 		display(data);
 	}
 	delete_player(&player);
