@@ -70,6 +70,8 @@ struct sdl_data	*init(const char *folder, const char *title) {
 		exit(1);
 	}
 
+	data->player = 0;
+
 	// the window grabs the mouse
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 	return data;

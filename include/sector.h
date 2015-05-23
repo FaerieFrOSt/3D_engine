@@ -16,6 +16,6 @@ void			delete_sector(struct sector**);
 void			addVertice(struct sector*, float x, float y);
 struct sector	*load_sector(struct sdl_data*, const char *filename);
 
-void			drawSector(struct SDL_Surface*, struct sector*);
+void			drawSector(struct sdl_data*, struct sector*);
 
 #endif /* !_SECTOR_H_ */

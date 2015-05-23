@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "draw.h"
+#include "player.h"
 
 struct sector	*create_sector(float floor, float ceiling) {
 	struct sector	*tmp = malloc(sizeof(*tmp));
@@ -60,10 +61,28 @@ struct sector	*load_sector(struct sdl_data *data, const char *filename) {
 	return s;
 }
 
-void	drawSector(struct SDL_Surface *s, struct sector *se) {
+void	drawSector(struct sdl_data *s, struct sector *se) {
 	int	i;
-	for (i = 0; i < se->numVertices - 1; ++i)
-		drawLine(s, se->vertex[i]->x, se->vertex[i]->y,
-				se->vertex[i + 1]->x, se->vertex[i + 1]->y,
-				SDL_MapRGB(s->format, 255, 0, 0));
+	int	x1, y1, x2, y2;
+	int	tz1, tz2;
+	struct player	*p = (struct player*)s->player;
+	for (i = 0; i < se->numVertices - 1; ++i) {
+		x1 = se->vertex[i]->x;
+		y1 = se->vertex[i]->y;
+		x2 = se->vertex[i + 1]->x;
+		y2 = se->vertex[i + 1]->y;
+		// transform the vertexes
+		x1 -= p->x;
+		y1 -= p->y;
+		x2 -= p->x;
+		y2 -= p->y;
+		// rotate vertexes around player
+		tz1 = x1 * p->anglecos + y1 * p->anglesin;
+		tz2 = x2 * p->anglecos + y2 * p->anglesin;
+		x1 = x1 * p->anglesin - y1 * p->anglecos;
+		x2 = x2 * p->anglesin - y2 * p->anglecos;
+		// draw
+		drawLine(s->screen, W/2-x1, H/2-tz1, W/2-x2, H/2-tz2,
+				SDL_MapRGB(s->screen->format, 255, 0, 0));
+	}
 }

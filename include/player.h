@@ -16,6 +16,8 @@ struct player {
 		int	backward;
 		int	left;
 		int	right;
+		int	rotateLeft;
+		int	rotateRight;
 	} keys;
 };
 

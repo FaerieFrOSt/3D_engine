@@ -65,5 +65,5 @@ void	delete_map(struct map **m) {
 void	drawMap(struct sdl_data *data, struct map *map) {
 	int	i;
 	for (i = 0; i < map->nbSectors; ++i)
-		drawSector(data->screen, map->sectors[i]);
+		drawSector(data, map->sectors[i]);
 }

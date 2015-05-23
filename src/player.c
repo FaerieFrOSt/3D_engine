@@ -17,6 +17,8 @@ struct player	*init_player(int x, int y, int z, float angle) {
 	tmp->keys.backward = SDL_SCANCODE_S;
 	tmp->keys.left = SDL_SCANCODE_A;
 	tmp->keys.right = SDL_SCANCODE_D;
+	tmp->keys.rotateLeft = SDL_SCANCODE_LEFT;
+	tmp->keys.rotateRight = SDL_SCANCODE_RIGHT;
 	return tmp;
 }
 

@@ -40,6 +40,7 @@ struct sdl_data {
 		SDL_Color	color;
 		SDL_Rect	pos;
 	} font;
+	void			*player;
 };
 
 struct sdl_data	*init(const char *folder, const char *title);
