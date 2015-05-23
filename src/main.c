@@ -29,9 +29,8 @@ int	main(int argc, char *argv[]) {
 		else if (keyPressed(data, player->keys.rotateRight))
 			updatePlayerRotation(player, -20*player->sensibility);
 		updatePlayerPosition(data, player, dx, dy);
-		int	x;
-		SDL_GetRelativeMouseState(&x, NULL);
-		updatePlayerRotation(player, x * player->sensibility);
+		SDL_GetRelativeMouseState(&dx, &dy);
+		updatePlayerRotation(player, dx * player->sensibility);
 
 		SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
 		SDL_FillRect(data->minimap, NULL, SDL_MapRGB(data->minimap->format, 0, 0, 0));
