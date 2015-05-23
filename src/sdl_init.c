@@ -91,6 +91,8 @@ void	end(struct sdl_data **data) {
 		SDL_DestroyWindow((*data)->win);
 	if ((*data)->screen)
 		SDL_FreeSurface((*data)->screen);
+	if ((*data)->tex)
+		SDL_DestroyTexture((*data)->tex);
 	if ((*data)->minimap)
 		SDL_FreeSurface((*data)->minimap);
 	if ((*data)->font.font)
@@ -104,11 +106,14 @@ void	end(struct sdl_data **data) {
 void	display(struct sdl_data *data) {
 		data->fps.fps = data->fps.countedFrames / ((SDL_GetTicks() - data->fps.startTime) / 1000.f);
 		SDL_Texture	*text = NULL;
-		/* drawVLine(data->minimap, 0, 0, data->minimap->h, SDL_MapRGB(data->minimap->format, 255, 255, 0)); */
-		/* drawHLine(data->minimap, 0, data->minimap->w, data->minimap->h, SDL_MapRGB(data->minimap->format, 255, 255, 0)); */
+		SDL_Texture	*minimap = 0;
+		drawVLine(data->minimap, 0, 0, data->minimap->h - 1, SDL_MapRGB(data->minimap->format, 255, 255, 0));
+		drawHLine(data->minimap, 0, data->minimap->w - 1, data->minimap->h - 1, SDL_MapRGB(data->minimap->format, 255, 255, 0));
 		SDL_Rect	rect = {W, 0, 0, 0};
 		rect.x -= data->minimap->w;
-		SDL_BlitSurface(data->minimap, 0, data->screen, &rect);
+		rect.w = data->minimap->w;
+		rect.h = data->minimap->h;
+		minimap = SDL_CreateTextureFromSurface(data->ren, data->minimap);
 		if (data->fps.print)
 		{
 			char	buf[16];
@@ -124,9 +129,13 @@ void	display(struct sdl_data *data) {
 		SDL_UpdateTexture(data->tex, NULL, data->screen->pixels, data->screen->pitch);
 		SDL_RenderClear(data->ren);
 		SDL_RenderCopy(data->ren, data->tex, NULL, NULL);
-		if (text)
+		SDL_RenderCopy(data->ren, minimap, NULL, &rect);
+		if (text) {
 			SDL_RenderCopy(data->ren, text, NULL, &data->font.pos);
+			SDL_DestroyTexture(text);
+		}
 		SDL_RenderPresent(data->ren);
+		SDL_DestroyTexture(minimap);
 		++data->fps.countedFrames;
 		// cap FPS if needed
 		uint32_t	tmp = SDL_GetTicks();

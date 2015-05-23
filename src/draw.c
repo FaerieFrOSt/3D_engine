@@ -36,7 +36,7 @@ void	drawHLine(SDL_Surface *s, unsigned int x1, unsigned int x2, unsigned y, uin
 inline void	drawPixel(SDL_Surface *s, unsigned int x, unsigned int y, uint32_t color) {
 	if (!s)
 		return;
-	if (x > s->w - 1 || y > s->h)
+	if (x > s->w - 1 || y > s->h - 1)
 		return;
 	uint32_t	*pixels = s->pixels;
 	pixels[y * s->w + x] = color;
