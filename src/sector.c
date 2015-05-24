@@ -21,6 +21,7 @@ void	addVertice(struct sector *s, float x, float y) {
 	s->vertex = realloc(s->vertex, s->numVertices * sizeof(*s->vertex));
 	s->vertex[s->numVertices - 1] = tmp;
 	s->neighboors = realloc(s->neighboors, s->numVertices * sizeof(*s->neighboors));
+	s->neighboors[s->numVertices - 1] = -1;
 }
 
 void	delete_sector(struct sector **s) {
