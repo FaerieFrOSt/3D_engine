@@ -33,6 +33,7 @@ int	main(int argc, char *argv[]) {
 		updatePlayerRotation(player, dx * player->sensibility);
 		// update player sector
 		int i;
+		player->sector = -1;
 		for (i = 0; i < map->nbSectors; ++i)
 			if (pointInSector(player->x, player->y, map->sectors[i])) {
 				player->sector = i;
