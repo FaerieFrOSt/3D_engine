@@ -10,6 +10,7 @@ struct sector {
 	int	numVertices;
 	float	floor, ceiling;
 	struct vertice	**vertex;
+	char	*neighboors; // each edge may have a neighboor
 };
 
 struct sector	*create_sector(float floor, float ceiling);

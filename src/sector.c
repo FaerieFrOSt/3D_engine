@@ -9,6 +9,7 @@ struct sector	*create_sector(float floor, float ceiling) {
 	tmp->ceiling = ceiling;
 	tmp->numVertices = 0;
 	tmp->vertex = NULL;
+	tmp->neighboors = 0;
 	return tmp;
 }
 
@@ -19,6 +20,7 @@ void	addVertice(struct sector *s, float x, float y) {
 	++s->numVertices;
 	s->vertex = realloc(s->vertex, s->numVertices * sizeof(*s->vertex));
 	s->vertex[s->numVertices - 1] = tmp;
+	s->neighboors = realloc(s->neighboors, s->numVertices * sizeof(*s->neighboors));
 }
 
 void	delete_sector(struct sector **s) {
@@ -65,6 +67,7 @@ void	drawSector(SDL_Surface *s, struct player *p, struct sector *se, uint8_t in)
 		x2 = x2 * p->anglesin - y2 * p->anglecos;
 		// draw
 		drawLine(s, s->w / 2 - x1, s->h / 2 - tz1, s->w / 2 - x2, s->h / 2 - tz2,
+				se->neighboors[i] == -1 ? SDL_MapRGB(s->format, 255, 255, 255) :
 				SDL_MapRGB(s->format, 255, 0, 0));
 	}
 	if (se->numVertices < 3)

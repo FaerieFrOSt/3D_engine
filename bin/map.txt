@@ -3,7 +3,7 @@
 # player : x y angle
 player 50 150 0
 
-sector 1
+sector 0
 	floor	0
 	ceiling	3
 
@@ -11,11 +11,15 @@ sector 1
 	# the sector needs to be closed
 	vertice	100 100
 	vertice 100 200
-	vertice 40 200
+	vertice 40 200 
 	vertice 40 100
+	vertice 50 100
 	vertice 100 100
 
-sector 2
+	# each wall may be connected to a neighboor : x for none or the number
+	neighboors	x x x x 1
+
+sector 1
 	floor	0
 	ceiling	3
 
@@ -24,3 +28,5 @@ sector 2
 	vertice 50 50
 	vertice 50 100
 	vertice 100 100
+
+	neighboors	x x x 0

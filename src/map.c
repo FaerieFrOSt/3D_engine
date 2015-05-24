@@ -14,7 +14,7 @@ struct map	*load_map(const struct sdl_data *data, const char *filename) {
 		exit(1);
 	}
 	char	word[256], *ptr;
-	int	n;
+	int	n, m;
 	float	tmp;
 	struct vertice	v;
 	struct sector	*s;
@@ -44,6 +44,13 @@ struct map	*load_map(const struct sdl_data *data, const char *filename) {
 				if (!s)
 					sscanf(ptr += n, "%f%n", &tmp, &n);
 				sscanf(ptr +=n, "%f%n", &s->ceiling, &n);
+				break;
+			case 'n': //neighboors
+				if (!s)
+					break;
+				m = 0;
+				for (;m < s->numVertices && sscanf(ptr += n, "%32s%n", word, &n) == 1;)
+					s->neighboors[m++] = word[0] == 'x' ? -1 : atoi(word);
 		}
 	}
 	for (n = 0; n < map->nbSectors; ++n)
