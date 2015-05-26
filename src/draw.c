@@ -17,6 +17,28 @@ void	drawVLine(SDL_Surface *s, unsigned int x, unsigned int y1, unsigned y2, uin
 		pixels[i * s->w + x] = color;
 }
 
+void	drawVLineColor(SDL_Surface *s, unsigned int x, unsigned int y1, unsigned y2, uint32_t top, uint32_t middle, uint32_t bottom) {
+	if (!s)
+		return;
+	if (x > s->w || y1 > s->h || y2 > s->h)
+		return;
+	if (y1 > y2) {
+		unsigned int	tmp = y2;
+		y2 = y1;
+		y1 = tmp;
+	}
+	uint32_t	*pixels = s->pixels;
+	unsigned int	i;
+	if (y1 == y2)
+		pixels[y1 * s->w + x] = middle;
+	else {
+		pixels[y1 * s->w + x] = top;
+		for (i = y1 + 1; i < y2; ++i)
+			pixels[i * s->w + x] = middle;
+		pixels[y2 * s->w + x] = bottom;
+	}
+}
+
 void	drawHLine(SDL_Surface *s, unsigned int x1, unsigned int x2, unsigned y, uint32_t color) {
 	if (!s)
 		return;
