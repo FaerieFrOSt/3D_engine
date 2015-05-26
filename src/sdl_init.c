@@ -59,7 +59,7 @@ struct sdl_data	*init(const char *folder, const char *title) {
 	// Font
 	// TODO : create a real font manager
 	char	buf[256];
-	snprintf(buf, sizeof buf, "%s/font.ttf", data->folder);
+	snprintf(buf, sizeof buf, "%s/resources/fonts/font.ttf", data->folder);
 	data->font.font = TTF_OpenFont(buf, 10);
 	data->font.color.r = 255;
 	data->font.color.g = 255;

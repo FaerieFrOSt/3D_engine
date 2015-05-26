@@ -53,6 +53,7 @@ struct map	*load_map(const struct sdl_data *data, const char *filename) {
 					s->neighboors[m++] = word[0] == 'x' ? -1 : atoi(word);
 		}
 	}
+	// begin sector for player
 	for (n = 0; n < map->nbSectors; ++n)
 		if (pointInSector(map->beginPosition.x, map->beginPosition.y, map->sectors[n])) {
 			map->beginPosition.sector = n;

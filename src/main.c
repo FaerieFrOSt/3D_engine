@@ -10,7 +10,7 @@ int	main(int argc, char *argv[]) {
 	struct sdl_data	*data = init(argv[0], "3D engine");
 	data->fps.print = 1;
 	data->fps.capFPS = 1;
-	struct map	*map = load_map(data, "map.txt");
+	struct map	*map = load_map(data, "resources/maps/map.txt");
 	struct player	*player = init_player(map->beginPosition.x, map->beginPosition.y, map->sectors[map->beginPosition.sector]->floor, map->beginPosition.angle);
 	data->player = player;
 	while (!keyPressed(data, SDL_SCANCODE_ESCAPE) && !data->events.quit) {
