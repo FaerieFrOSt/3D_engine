@@ -24,6 +24,17 @@ void	addVertice(struct sector *s, float x, float y) {
 	s->neighboors[s->numVertices - 1] = -1;
 }
 
+void	insertVertice(struct sector* s, struct vertice v, unsigned int pos) {
+	addVertice(s, v.x, v.y);
+	if (pos >= s->numVertices - 1)
+		return;
+	int	k;
+	struct vertice	*tmp = s->vertex[s->numVertices - 1];
+	for (k = s->numVertices - 1; k >= pos; --k)
+		s->vertex[k] = s->vertex[k - 1];
+	s->vertex[pos] = tmp;
+}
+
 void	delete_sector(struct sector **s) {
 	if (!s || !*s)
 		return;
@@ -35,19 +46,7 @@ void	delete_sector(struct sector **s) {
 	*s = 0;
 }
 
-inline void	fill(SDL_Surface *s, unsigned int x, unsigned int y, const uint32_t color) {
-	if (x < 0 || x >= s->w || y < 0 || y >= s->h)
-		return;
-	if (((uint32_t*)s->pixels)[y * s->w + x])
-		return;
-	drawPixel(s, x, y, color);
-	fill(s, x - 1, y, color);
-	fill(s, x + 1, y, color);
-	fill(s, x, y - 1, color);
-	fill(s, x, y + 1, color);
-}
-
-void	drawSector(SDL_Surface *s, struct player *p, struct sector *se, uint8_t in) {
+void	drawSector(SDL_Surface *s, struct player *p, struct sector *se, uint8_t debug) {
 	int	i;
 	int	x1, y1, x2, y2;
 	int	tz1, tz2;
@@ -70,11 +69,19 @@ void	drawSector(SDL_Surface *s, struct player *p, struct sector *se, uint8_t in)
 		drawLine(s, s->w / 2 - x1, s->h / 2 - tz1, s->w / 2 - x2, s->h / 2 - tz2,
 				se->neighboors[i] == -1 ? SDL_MapRGB(s->format, 255, 255, 255) :
 				SDL_MapRGB(s->format, 255, 0, 0));
+		if (!debug)
+			continue;
+		// render vertexes
+		drawPixel(s, s->w / 2 - x1, s->h / 2 - tz1, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x2, s->h / 2 - tz2, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x1 - 1, s->h / 2 - tz1, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x2 + 1, s->h / 2 - tz2, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x1, s->h / 2 - tz1 - 1, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x2, s->h / 2 - tz2 + 1, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x1 - 2, s->h / 2 - tz1, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x2 + 2, s->h / 2 - tz2, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x1, s->h / 2 - tz1 - 2, SDL_MapRGB(s->format, 255, 0, 255));
+		drawPixel(s, s->w / 2 - x2, s->h / 2 - tz2 + 2, SDL_MapRGB(s->format, 255, 0, 255));
 	}
-	if (se->numVertices < 3)
-		return;
-	//fill algorithm
-	if (in)
-		fill(s, s->w / 2, s->h / 2, SDL_MapRGB(s->format, 0, 0, 50));
 }
 

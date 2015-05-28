@@ -18,6 +18,6 @@ struct map {
 struct map	*load_map(const struct sdl_data *, const char *filename);
 void		delete_map(struct map**);
 
-void		drawMap(SDL_Surface*, struct player*, struct map*);
+void		drawMap(SDL_Surface*, struct player*, struct map*, uint8_t debug);
 
 #endif /* !_MAP_H_ */

@@ -42,6 +42,7 @@ struct sdl_data {
 		SDL_Rect	pos;
 	} font;
 	void			*player;
+	uint8_t			debug;
 };
 
 struct sdl_data	*init(const char *folder, const char *title);
