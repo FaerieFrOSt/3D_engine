@@ -1,64 +1,33 @@
-player	45 45 0
+# this is a comment
+
+# player : x y angle
+player 10 10 0 
 
 sector 0
-	floor 0
-	ceiling 3
+	floor	0
+	ceiling	3
 
-	vertice 20 20
-	vertice 40 20
-	vertice 40 40
-	vertice 20 40
+	# each vertice is as follow : x y
+	# the sector needs to be closed
+	vertice	20 50
+	vertice 50 50
+	vertice 50 90
+	vertice 20 90
 
 sector 1
-	floor 0
-	ceiling 3
-	
+	floor	0
+	ceiling	3
+
+	vertice 30 20
 	vertice 50 20
-	vertice 70 20
-	vertice 70 40
-	vertice 50 40
+	vertice 50 50
+	vertice 30 50
 
 sector 2
-	floor 0
-	ceiling 3
+	floor	0
+	ceiling	3
 
-	vertice 20 50
-	vertice 40 50
-	vertice 40 70
-	vertice 20 70
-
-sector 3
-	floor 0
-	ceiling 3
-
-	vertice 50 50
-	vertice 70 50
-	vertice 70 70
-	vertice 50 70
-
-sector 4
-	floor 0
-	ceiling 3
-
-	vertice 0 20
-	vertice 20 20
-	vertice 20 30
-	vertice 0 30
-
-sector 5
-	floor 0
-	ceiling 3
-
-	vertice 60 0
-	vertice 80 0
-	vertice 80 20
-	vertice 60 20
-
-sector 6
-	floor 0
-	ceiling 3
-
-	vertice 70 40
-	vertice 90 40
-	vertice 90 90
-	vertice 70 90
+	vertice	0 0
+	vertice 30 0
+	vertice	30 50
+	vertice	0 50
