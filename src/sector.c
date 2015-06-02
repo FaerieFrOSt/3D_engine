@@ -48,8 +48,8 @@ void	delete_sector(struct sector **s) {
 
 void	drawSector(SDL_Surface *s, struct player *p, struct sector *se, uint8_t debug) {
 	int	i;
-	int	x1, y1, x2, y2;
-	int	tz1, tz2;
+	float	x1, y1, x2, y2;
+	float	tz1, tz2;
 	for (i = 0; i < se->numVertices - 1; ++i) {
 		x1 = se->vertex[i]->x;
 		y1 = se->vertex[i]->y;

@@ -43,6 +43,7 @@ int	main(int argc, char *argv[]) {
 
 		SDL_FillRect(data->screen, NULL, SDL_MapRGB(data->screen->format, 0, 0, 0));
 		SDL_FillRect(data->minimap, NULL, SDL_MapRGB(data->minimap->format, 0, 0, 0));
+		drawPerspective(data, map);
 		drawMinimap(data, map);
 		display(data);
 	}
