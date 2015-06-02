@@ -2,7 +2,7 @@ player	45 45 0
 
 sector 0
 	floor 0
-	ceiling 3
+	ceiling 20
 
 	vertice 20 20
 	vertice 40 20
@@ -11,7 +11,7 @@ sector 0
 
 sector 1
 	floor 0
-	ceiling 3
+	ceiling 20
 	
 	vertice 50 20
 	vertice 70 20
@@ -20,7 +20,7 @@ sector 1
 
 sector 2
 	floor 0
-	ceiling 3
+	ceiling 20
 
 	vertice 20 50
 	vertice 40 50
@@ -29,7 +29,7 @@ sector 2
 
 sector 3
 	floor 0
-	ceiling 3
+	ceiling 20
 
 	vertice 50 50
 	vertice 70 50
@@ -38,7 +38,7 @@ sector 3
 
 sector 4
 	floor 0
-	ceiling 3
+	ceiling 20
 
 	vertice 0 20
 	vertice 20 20
@@ -47,7 +47,7 @@ sector 4
 
 sector 5
 	floor 0
-	ceiling 3
+	ceiling 20
 
 	vertice 60 0
 	vertice 80 0
@@ -56,7 +56,7 @@ sector 5
 
 sector 6
 	floor 0
-	ceiling 3
+	ceiling 20
 
 	vertice 70 40
 	vertice 90 40
