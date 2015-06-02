@@ -5,7 +5,7 @@ player 10 10 0
 
 sector 0
 	floor	0
-	ceiling	3
+	ceiling	20
 
 	# each vertice is as follow : x y
 	# the sector needs to be closed
@@ -16,7 +16,7 @@ sector 0
 
 sector 1
 	floor	0
-	ceiling	3
+	ceiling	20
 
 	vertice 30 20
 	vertice 50 20
@@ -25,7 +25,7 @@ sector 1
 
 sector 2
 	floor	0
-	ceiling	3
+	ceiling	20
 
 	vertice	0 0
 	vertice 30 0

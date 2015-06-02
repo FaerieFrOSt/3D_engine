@@ -4,7 +4,8 @@
 
 #include "sdl_init.h"
 
-#define PLAYER_SPEED	5
+#define PLAYER_SPEED	2
+#define EYEHEIGHT		6
 
 struct player {
 	int		x, y, z;

@@ -20,7 +20,7 @@ void	drawPerspective(struct sdl_data *data, struct map *map) {
 		float	tz2 = vx2 * player->anglecos + vy2 * player->anglesin;
 		if (tz1 <= 0 && tz2 <= 0)
 			continue; // outside player view
-		if (tz1 <=0 || tz2 <= 0) { // partially outside player view
+		if (tz1 <= 0 || tz2 <= 0) { // partially outside player view
 			// find an intersection between wall and approximate edges of player's view
 			struct vertice	i1, i2;
 			Intersect(tx1, tz1, tx2, tz2, -NEARSIDE, NEARZ, -FARSIDE, FARZ, i1.x, i1.y);
@@ -45,20 +45,20 @@ void	drawPerspective(struct sdl_data *data, struct map *map) {
 			}
 		}
 		// perspective transformations
-		float	xscale1 = HFOV / tz1;
-		float	yscale1 = VFOV / tz1;
-		int		x1 = data->screen->w / 2 - tx1 * xscale1;
-		float	xscale2 = HFOV / tz2;
-		float	yscale2 = VFOV / tz2;
-		int		x2 = data->screen->w / 2 - tx2 * xscale2;
+		float	xscale1 = (float)HFOV / tz1;
+		float	yscale1 = (float)VFOV / tz1;
+		int		x1 = data->screen->w / 2.f - tx1 * xscale1;
+		float	xscale2 = (float)HFOV / tz2;
+		float	yscale2 = (float)VFOV / tz2;
+		int		x2 = data->screen->w / 2.f - tx2 * xscale2;
 		if (x1 >= x2)
 			continue; // only render if visible
 		float	yceil = s->ceiling - player->z;
 		float	yfloor = s->floor - player->z;
-		int	y1a = data->screen->h / 2 - yceil * yscale1;
-		int	y1b = data->screen->h / 2 - yfloor * yscale1;
-		int	y2a = data->screen->h / 2 - yceil * yscale2;
-		int	y2b = data->screen->h / 2 - yfloor * yscale2;
+		int	y1a = data->screen->h / 2.f - yceil * yscale1;
+		int	y1b = data->screen->h / 2.f - yfloor * yscale1;
+		int	y2a = data->screen->h / 2.f - yceil * yscale2;
+		int	y2b = data->screen->h / 2.f - yfloor * yscale2;
 		// render wall
 		int	beginx = max(x1, 0), endx = min(x2, data->screen->w - 1);
 		int	x;
@@ -71,7 +71,7 @@ void	drawPerspective(struct sdl_data *data, struct map *map) {
 			// render ceiling
 			drawVLineColor(data->screen, x, 0, cya - 1, 0x111111, 0x222222, 0x111111);
 			// render floor
-			drawVLineColor(data->screen, x, cyb + 1, data->screen->w - 1, 0xFF, 0xAA, 0xFF);
+			drawVLineColor(data->screen, x, cyb + 1, data->screen->w - 1, 0x0000FF, 0x0000AA, 0x0000FF);
 			if (s->neighboors[i] != -1) { // TODO : neighboor
 				drawVLineColor(data->screen, x, cya, cyb, 0, x == x1 || x == x2 ? 0 : 0xAA0000, 0);
 			} else {
