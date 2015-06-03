@@ -66,9 +66,9 @@ void	drawPerspective(struct sdl_data *data, struct map *map) {
 		for (x = beginx; x <= endx; ++x) {
 			// y coordinates for ceiling and floor for this x coordinate and clamp them
 			int	ya = (x - x1) * (y2a - y1a) / (x2 - x1) + y1a;
-			int	cya = clamp(ya, 0, data->screen->w - 1); // top
+			int	cya = clamp(ya, 0, data->screen->h - 1); // top
 			int	yb = (x - x1) * (y2b - y1b) / (x2 - x1) + y1b;
-			int	cyb = clamp(yb, 0, data->screen->w - 1); // bottom
+			int	cyb = clamp(yb, 0, data->screen->h - 1); // bottom
 			// render ceiling
 			drawVLine(data->screen, x, 0, cya - 1, 0x333333);
 			// render floor
