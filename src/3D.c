@@ -70,13 +70,13 @@ void	drawPerspective(struct sdl_data *data, struct map *map) {
 			int	yb = (x - x1) * (y2b - y1b) / (x2 - x1) + y1b;
 			int	cyb = clamp(yb, 0, data->screen->w - 1); // bottom
 			// render ceiling
-			drawVLineColor(data->screen, x, 0, cya - 1, 0x111111, 0x222222, 0x111111);
+			drawVLine(data->screen, x, 0, cya - 1, 0x333333);
 			// render floor
-			drawVLineColor(data->screen, x, cyb + 1, data->screen->w - 1, 0x0000FF, 0x0000AA, 0x0000FF);
+			drawVLine(data->screen, x, cyb + 1, data->screen->h - 1, 0xAA);
 			if (s->neighboors[i] != -1) { // TODO : neighboor
-				drawVLineColor(data->screen, x, cya, cyb, 0, x == x1 || x == x2 ? 0 : 0xAA0000, 0);
+				drawVLine(data->screen, x, cya, cyb, x == x1 || x == x2 ? 0 : 0xAA0000);
 			} else {
-				drawVLineColor(data->screen, x, cya, cyb, 0, x == x1 || x == x2 ? 0 : 0xAAAAAA, 0);
+				drawVLine(data->screen, x, cya, cyb, x == x1 || x == x2 ? 0 : 0xAAAAAA);
 			}
 		}
 	}
