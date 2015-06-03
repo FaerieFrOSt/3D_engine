@@ -26,12 +26,12 @@ int	main(int argc, char *argv[]) {
 		else if (keyPressed(data, player->keys.right))
 			dy = 1;
 		if (keyPressed(data, player->keys.rotateLeft))
-			updatePlayerRotation(player, -20 * player->sensibility);
+			updatePlayerRotation(player, -20 * player->sensibility, 0);
 		else if (keyPressed(data, player->keys.rotateRight))
-			updatePlayerRotation(player, 20 * player->sensibility);
+			updatePlayerRotation(player, 20 * player->sensibility, 0);
 		updatePlayerPosition(data, player, dx, dy);
 		SDL_GetRelativeMouseState(&dx, &dy);
-		updatePlayerRotation(player, dx * player->sensibility);
+		updatePlayerRotation(player, dx * player->sensibility, -dy * player->ysensibility);
 		// update player sector
 		int i;
 		player->sector = -1;

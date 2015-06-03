@@ -10,8 +10,8 @@
 #define NEARSIDE	1e-5f
 #define FARSIDE		20.f
 
-#define HFOV		(.73f * H)
-#define VFOV		(.2f * H)
+#define HFOV		(.73f * data->screen->h)
+#define VFOV		(.2f * data->screen->h)
 
 #define FNCross(x1, y1, x2, y2) ((x1) * (y2) - (x2) * (y1))
 #define Intersect(x1, y1, x2, y2, x3, y3, x4, y4, x, y) do { \

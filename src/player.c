@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <math.h>
+#include "utils.h"
 
 struct player	*init_player(int x, int y, int z, float angle) {
 	struct player	*tmp = malloc(sizeof(*tmp));
@@ -11,9 +12,11 @@ struct player	*init_player(int x, int y, int z, float angle) {
 	tmp->sector = 0;
 	tmp->speed = PLAYER_SPEED;
 	tmp->angle = angle * M_PI / 180.f;
+	tmp->yaw = 0;
 	tmp->anglecos = cosf(angle);
 	tmp->anglesin = sinf(angle);
 	tmp->sensibility = 0.1f;
+	tmp->ysensibility = 0.05f;
 	tmp->keys.forward = SDL_SCANCODE_W;
 	tmp->keys.backward = SDL_SCANCODE_S;
 	tmp->keys.left = SDL_SCANCODE_A;
@@ -52,7 +55,7 @@ void	updatePlayerPosition(struct sdl_data *data, struct player *player, int dx, 
 	}
 }
 
-void	updatePlayerRotation(struct player *player, float rot) {
+void	updatePlayerRotation(struct player *player, float rot, float yaw) {
 	player->angle += rot * M_PI / 180.f;
 	while (player->angle < 0.f)
 		player->angle += 2.f * M_PI;
@@ -60,4 +63,5 @@ void	updatePlayerRotation(struct player *player, float rot) {
 		player->angle -= 2.f * M_PI;
 	player->anglecos = cosf(player->angle);
 	player->anglesin = sinf(player->angle);
+	player->yaw = clamp(player->yaw - yaw, -MAXYAW, MAXYAW);
 }

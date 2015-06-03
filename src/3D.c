@@ -55,10 +55,11 @@ void	drawPerspective(struct sdl_data *data, struct map *map) {
 			continue; // only render if visible
 		float	yceil = s->ceiling - player->z;
 		float	yfloor = s->floor - player->z;
-		int	y1a = data->screen->h / 2.f - yceil * yscale1;
-		int	y1b = data->screen->h / 2.f - yfloor * yscale1;
-		int	y2a = data->screen->h / 2.f - yceil * yscale2;
-		int	y2b = data->screen->h / 2.f - yfloor * yscale2;
+		#define Yaw(y, z) (y + z * player->yaw)
+		int	y1a = data->screen->h / 2.f - Yaw(yceil, tz1) * yscale1;
+		int	y1b = data->screen->h / 2.f - Yaw(yfloor, tz1) * yscale1;
+		int	y2a = data->screen->h / 2.f - Yaw(yceil, tz2) * yscale2;
+		int	y2b = data->screen->h / 2.f - Yaw(yfloor, tz2) * yscale2;
 		// render wall
 		int	beginx = max(x1, 0), endx = min(x2, data->screen->w - 1);
 		int	x;

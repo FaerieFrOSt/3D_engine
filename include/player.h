@@ -6,12 +6,15 @@
 
 #define PLAYER_SPEED	2
 #define EYEHEIGHT		6
+#define MAXYAW			1.5f
 
 struct player {
 	int		x, y, z;
 	float	angle, anglecos, anglesin;
+	float	yaw;
 	int		speed;
 	float	sensibility;
+	float	ysensibility;
 	int		sector;
 	struct {
 		int	forward;
@@ -27,6 +30,6 @@ struct player	*init_player(int x, int y, int z, float angle);
 void			delete_player(struct player **);
 
 void			updatePlayerPosition(struct sdl_data*, struct player*, int dx, int dy);
-void			updatePlayerRotation(struct player*, float rot);
+void			updatePlayerRotation(struct player*, float rot, float yaw);
 
 #endif /* !_PLAYER_H_ */
